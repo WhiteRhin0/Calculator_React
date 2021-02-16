@@ -4,11 +4,36 @@ import { CalculatorKey } from '../CalculatorKey';
 
 export const Calculator = () => {
   const [result, setResult] = useState('0');
-  const [prevValue, setPrevValue] = useState(0);
+  const [prevValue, setPrevValue] = useState([]);
   const [nextValue, setNextValue] = useState("");
   const [operation, setOperation] = useState(null);
 
-  useEffect(() => {}, [operation, nexValue, prevValue])
+  const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const operators = ['*', '/', '+', '-'];
+
+  useEffect(() => {}, [operation, nextValue, prevValue]);
+
+  const handleNumber = (number) => {
+    if (prevValue.length === 0) {
+      setPrevValue(prevValue.push(number))
+    }
+
+    setPrevValue([prevValue, number]);
+  };
+
+  const handleOperator = (operator) => {
+    if (operators.includes(operator)) {
+      
+    }
+  };
+
+  const handleOperation = (value) => {
+    if (numbers.includes(value)) {
+      handleNumber(value);
+    }
+
+    setResult(prevValue);
+  }
 
   return (
     <div className="calculator">
