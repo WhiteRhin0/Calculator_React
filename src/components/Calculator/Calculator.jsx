@@ -1,42 +1,59 @@
 import React, { useState, useEffect} from 'react';
 
+import './Calculator.css';
 import { CalculatorKey } from '../CalculatorKey';
 
 export const Calculator = () => {
   const [result, setResult] = useState('0');
   const [prevValue, setPrevValue] = useState(null);
-  const [nextValue, setNextValue] = useState("");
+  const [nextValue, setNextValue] = useState(null);
   const [operation, setOperation] = useState(null);
   const [screen, setScreen] = useState("0");
 
   const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   const operators = ['*', '/', '+', '-'];
 
+  const calculatorOperations = {
+    "/": (firstValue, secondValue) => firstValue / secondValue,
+    "*": (firstValue, secondValue) => firstValue * secondValue,
+    "+": (firstValue, secondValue) => firstValue + secondValue,
+    "-": (firstValue, secondValue) => firstValue - secondValue,
+    "=": (firstValue, secondValue) => secondValue,
+  };
+
   useEffect(() => {}, [ prevValue, screen ]);
 
   const handleNumber = (number) => {
     setScreen(screen === "0" ? String(number) : screen + number);
 
+    setNextValue(nextValue === null ? String(number) : nextValue + number);
   };
 
   const handleOperator = (operator) => {
-    if (operators.includes(operator)) {
-      setPrevValue(+screen);
-      setOperation(operator);
-      setScreen(`${screen} ${operator} `);
+    setScreen(screen + operator);
+    setOperation(operator);
+    setPrevValue(nextValue);
+    setNextValue(null);
+  }
 
-    }
-  };
+  const clearData = () => {
+    setNextValue(null);
+    setPrevValue(null);
+    setScreen("0")
+  }
 
   const handleClick = (value) => {
     if (numbers.includes(value)) {
       handleNumber(value);
     }
 
-    if (operators.includes(value) && !operators.includes(screen.trim()[screen.length - 1]) ) {
-      handleOperator(value);
+    if (value in calculatorOperations && value !== '=') {
+      handleOperator(value)
     }
 
+    if (value === '=') {
+      setNextValue(calculatorOperations[value](prevValue, nextValue));
+    }
 
   }
 
