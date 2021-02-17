@@ -52,7 +52,11 @@ export const Calculator = () => {
     }
 
     if (value === '=') {
-      setNextValue(calculatorOperations[value](prevValue, nextValue));
+      setResult(calculatorOperations[operation](parseInt(prevValue), parseInt(nextValue)));
+    }
+
+    if (value === "AC") {
+      clearData();
     }
 
   }
@@ -61,45 +65,43 @@ export const Calculator = () => {
     <div className="calculator">
       <div className="calculator__input">
         <div className="result">
-          {screen}
+          {screen}|||
+          {result}
         </div>
       </div>
 
-      <div className="keys-function">
-          <CalculatorKey keyValue={"AC"} onClick={handleClick} className="key-function" />
-          <CalculatorKey keyValue={"<|"} onClick={handleClick} className="key-function" />
-          <CalculatorKey keyValue={"%"} onClick={handleClick} className="key-function" />
-        </div>
+      <div className="calculator__keys">
+        <CalculatorKey keyValue={"AC"} onClick={handleClick} className="key-function clear" />
+        <CalculatorKey keyValue={"<|"} onClick={handleClick} className="key-function delete" />
+        <CalculatorKey keyValue={"%"} onClick={handleClick} className="key-function percent" />
 
-        <div className="keys-operators">
-          <CalculatorKey keyValue={"+"} onClick={handleClick} className="key-operator" />
-          <CalculatorKey keyValue={"-"} onClick={handleClick} className="key-operator" />
-          <CalculatorKey keyValue={"*"} onClick={handleClick} className="key-operator" />
-          <CalculatorKey keyValue={"/"} onClick={handleClick} className="key-operator" />
-          <CalculatorKey keyValue={"="} onClick={handleClick} className="key-operator" />
-        </div>
+        <CalculatorKey keyValue={"+"} onClick={handleClick} className="key-operator plus" />
+        <CalculatorKey keyValue={"-"} onClick={handleClick} className="key-operator minus" />
+        <CalculatorKey keyValue={"*"} onClick={handleClick} className="key-operator multi" />
+        <CalculatorKey keyValue={"/"} onClick={handleClick} className="key-operator divide" />
+        <CalculatorKey keyValue={"="} onClick={handleClick} className="key-operator equal" />
 
-        <div className="keys-numbers">
-          <CalculatorKey keyValue={9} onClick={handleClick} className="key-number" />
-          <CalculatorKey keyValue={8} onClick={handleClick} className="key-number" />
-          <CalculatorKey keyValue={7} onClick={handleClick} className="key-number" />
-          <CalculatorKey keyValue={6} onClick={handleClick} className="key-number" />
-          <CalculatorKey keyValue={5} onClick={handleClick} className="key-number" />
-          <CalculatorKey keyValue={4} onClick={handleClick} className="key-number" />
-          <CalculatorKey keyValue={3} onClick={handleClick} className="key-number" />
-          <CalculatorKey keyValue={2} onClick={handleClick} className="key-number" />
-          <CalculatorKey keyValue={1} onClick={handleClick} className="key-number" />
-          <CalculatorKey
-            className="key-dot"
-            keyValue={"."}
-            onClick={handleClick}
-          />
-          <CalculatorKey
-            className="key-zero"
-            keyValue={0}
-            onClick={handleClick}
-          />
-        </div>
+        <CalculatorKey
+          className="key-number zero"
+          keyValue={0}
+          onClick={handleClick}
+        />
+        <CalculatorKey keyValue={1} onClick={handleClick} className="key-number one" />
+        <CalculatorKey keyValue={2} onClick={handleClick} className="key-number two" />
+        <CalculatorKey keyValue={3} onClick={handleClick} className="key-number three" />
+        <CalculatorKey keyValue={4} onClick={handleClick} className="key-number four" />
+        <CalculatorKey keyValue={5} onClick={handleClick} className="key-number five" />
+        <CalculatorKey keyValue={6} onClick={handleClick} className="key-number six" />
+        <CalculatorKey keyValue={7} onClick={handleClick} className="key-number seven" />
+        <CalculatorKey keyValue={8} onClick={handleClick} className="key-number eight" />
+        <CalculatorKey keyValue={9} onClick={handleClick} className="key-number nine" />
+        <CalculatorKey
+          className="dot"
+          keyValue={"."}
+          onClick={handleClick}
+        />
+          
+      </div>
     </div>
   )
 }
