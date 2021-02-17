@@ -16,13 +16,14 @@ export const Calculator = () => {
 
   const handleNumber = (number) => {
     setScreen(screen === "0" ? String(number) : screen + number);
+
   };
 
   const handleOperator = (operator) => {
     if (operators.includes(operator)) {
       setPrevValue(+screen);
       setOperation(operator);
-      setScreen(`${screen} ${operator}`);
+      setScreen(`${screen} ${operator} `);
 
     }
   };
@@ -32,7 +33,7 @@ export const Calculator = () => {
       handleNumber(value);
     }
 
-    if (operators.includes(value) && !operators.includes(screen[screen.length - 1]) ) {
+    if (operators.includes(value) && !operators.includes(screen.trim()[screen.length - 1]) ) {
       handleOperator(value);
     }
 
